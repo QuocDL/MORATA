@@ -96,7 +96,7 @@ export default function VariantPickerDrawer({
     }, [product]);
     const { query } = useFilter();
     const { data: allWishList } = useGetAllWishlist(query);
-    const wishListIds = allWishList?.data.wishList.map((item) => item._id);
+    const wishListIds = allWishList?.data ? allWishList.data.wishList.map((item) => item._id) : [];
     const { mutate: addWishlist } = useMutationAddWishList();
     const { handleRemoveWishList } = useMutationRemoveWishList();
     const debouncedRemove = debounce((ProductId: string) => handleRemoveWishList(ProductId), 500);
@@ -108,7 +108,6 @@ export default function VariantPickerDrawer({
             showMessage('You need to login first!', 'warning');
         }
     };
-
     return (
         <>
             <div className='w-full' onClick={showDrawer}>

@@ -17,7 +17,8 @@ const ProductActions = ({ id }: { id: string }) => {
     const user = useSelector((state: RootState) => state.authReducer.user);
     const { mutate: addWishlist } = useMutationAddWishList();
     const { data: allWishList } = useGetAllWishlist(query);
-    const wishListIds = allWishList?.data.wishList.map((item) => item._id);
+    const wishListIds = allWishList?.data ? allWishList.data.wishList.map((item) => item._id) : [];
+
     const { handleRemoveWishList } = useMutationRemoveWishList();
     const debouncedRemove = debounce((ProductId: string) => handleRemoveWishList(ProductId), 500);
 
